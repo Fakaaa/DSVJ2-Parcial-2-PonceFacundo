@@ -2,7 +2,9 @@
 
 public class ShipController : MonoBehaviour
 {
+    [SerializeField] ParticleSystem propulsion;
     public ShipData dataSpaceShip;
+    public float minDegreeToExplode;
     private Rigidbody2D myBody;
 
     private Ray rayToGround;
@@ -27,8 +29,14 @@ public class ShipController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && dataSpaceShip.fuel > 0)
         {
-            myBody.AddForce(transform.up * dataSpaceShip.propulsionPower, ForceMode2D.Force);
+            myBody.AddForce(transform.up * dataSpaceShip.propulsionPower * Time.deltaTime, ForceMode2D.Force);
             dataSpaceShip.fuel--;
+            if (!propulsion.isPlaying)
+                propulsion.Play(true);
+        }
+        else
+        {
+           propulsion.Stop(true, ParticleSystemStopBehavior.StopEmitting);
         }
     }
 
@@ -50,11 +58,16 @@ public class ShipController : MonoBehaviour
         dataSpaceShip.altitude = Vector2.Distance(transform.position, hitInfo.point);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            Debug.Log("Toco el piso xd");
+            if(transform.eulerAngles.z > minDegreeToExplode || transform.eulerAngles.z < -minDegreeToExplode)
+            {
+                Debug.Log("Boom");
+            }
+
+            Debug.Log("Piso piso piso xd");
         }
     }
 }
