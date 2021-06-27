@@ -710,9 +710,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookAtThat: {fileID: 940833617}
-  speedFollow: 1.25
+  speedFollow: 3.85
   zoomDistance: 165
-  zoomUp: 0
   maxAltitudToZoom: 70
   followPlayer: 0
 --- !u!1 &1185377592

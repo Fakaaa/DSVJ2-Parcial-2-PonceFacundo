@@ -31,15 +31,20 @@ namespace CameraFollowScript
             if(player != null)
             {
                 if (player.altitude < maxAltitudToZoom)
+                {
                     followPlayer = true;
+                    posToMoveTowards = lookAtThat.position + zoom;
+                }
                 else
                     followPlayer = false;
 
                 Debug.Log("Uwu");
             }
 
-            if(followPlayer)
+            if (followPlayer)
+            {
                 FocusToTargetAndMove();
+            }
             else
             {
                 transform.position = Vector3.Lerp(transform.position, initialCameraPosition, Time.deltaTime * speedFollow);
@@ -47,15 +52,13 @@ namespace CameraFollowScript
         }
         public void FocusToTargetAndMove()
         {
-            Vector3 myPos = transform.position;
-
             zoom = new Vector3(0, 0, -zoomDistance);
 
             if (lookAtThat != null)
             {
                 posToMoveTowards = lookAtThat.position + zoom;
 
-                transform.position = Vector3.Lerp(myPos, posToMoveTowards, Vector3.Distance(myPos, posToMoveTowards) * Time.deltaTime * speedFollow);
+                transform.position = Vector3.Lerp(transform.position, posToMoveTowards, Time.deltaTime * speedFollow);
             }
         }
     }
