@@ -10,4 +10,11 @@ public class ShipData : MonoBehaviour
     [SerializeField] public float propulsionPower;
     [SerializeField] public float rotationSpeed;
 
+    public delegate void PassShipDataToUI();
+    public static PassShipDataToUI updateUIShip;
+
+    private void Update()
+    {
+        updateUIShip?.Invoke();
+    }
 }

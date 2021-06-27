@@ -12,6 +12,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         playerScore += scoreAmount;
     }
+    public int GetScorePlayer()
+    {
+        return playerScore;
+    }
 
     public void SetHighScore( string namePlayer, int score)
     {
