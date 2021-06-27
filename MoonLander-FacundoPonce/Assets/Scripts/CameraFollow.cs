@@ -7,20 +7,20 @@ namespace CameraFollowScript
         [SerializeField] public Transform lookAtThat;
 
         [SerializeField] [Range(0.5f, 9)] public float speedFollow;
-        [SerializeField] [Range(3, 10)] public float zoomDistance;
-        [SerializeField] [Range(2, 8)] public float zoomUp;
-        [SerializeField] public bool lookAtPlayer;
+        [SerializeField] [Range(3, 800)] public float zoomDistance;
+        [SerializeField] [Range(30, 70)] public float maxAltitudToZoom;
+        [SerializeField] public bool followPlayer;
         private Vector3 zoom;
 
         private Vector3 posToMoveTowards;
+        private Vector3 initialCameraPosition;
 
-        private float timerUntilDeactiveLookAt; 
-        private float time; 
+        private ShipData player;
 
         private void Awake()
         {
-            timerUntilDeactiveLookAt = 1;
-            lookAtPlayer = true;
+            player = lookAtThat.GetComponent<ShipData>();
+            initialCameraPosition = transform.position;
         }
         public void LookAtPlayer()
         {
@@ -28,25 +28,32 @@ namespace CameraFollowScript
         }
         void LateUpdate()
         {
-            FocusToTargetAndMove();
+            if(player != null)
+            {
+                if (player.altitude < maxAltitudToZoom)
+                    followPlayer = true;
+                else
+                    followPlayer = false;
+
+                Debug.Log("Uwu");
+            }
+
+            if(followPlayer)
+                FocusToTargetAndMove();
+            else
+            {
+                transform.position = Vector3.Lerp(transform.position, initialCameraPosition, Time.deltaTime * speedFollow);
+            }
         }
         public void FocusToTargetAndMove()
         {
-            time += Time.deltaTime;
-
-            if (time >= timerUntilDeactiveLookAt)
-                lookAtPlayer = false;
-
             Vector3 myPos = transform.position;
 
-            zoom = new Vector3(0, zoomUp, -zoomDistance);
+            zoom = new Vector3(0, 0, -zoomDistance);
 
             if (lookAtThat != null)
             {
                 posToMoveTowards = lookAtThat.position + zoom;
-
-                if (lookAtPlayer)
-                    LookAtPlayer();
 
                 transform.position = Vector3.Lerp(myPos, posToMoveTowards, Vector3.Distance(myPos, posToMoveTowards) * Time.deltaTime * speedFollow);
             }
