@@ -1,17 +1,21 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class ShipController : MonoBehaviour
 {
     [SerializeField] ParticleSystem propulsion;
+    [SerializeField] Animator crashAnimator;
     public ShipData dataSpaceShip;
     public float minDegreeToExplode;
     private Rigidbody2D myBody;
 
     private Ray rayToGround;
     private float maxHeight;
+    private float maxYvelToCrash;
 
     void Start()
     {
+        maxYvelToCrash = -15f;
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
@@ -56,6 +60,8 @@ public class ShipController : MonoBehaviour
         RaycastHit2D hitInfo = Physics2D.Raycast(rayToGround.origin, rayToGround.direction, maxHeight);
 
         dataSpaceShip.altitude = Vector2.Distance(transform.position, hitInfo.point);
+        dataSpaceShip.verticalVelocity = myBody.velocity.y;
+        dataSpaceShip.horizontalVelocity = myBody.velocity.x;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -64,10 +70,21 @@ public class ShipController : MonoBehaviour
         {
             if(transform.eulerAngles.z > minDegreeToExplode || transform.eulerAngles.z < -minDegreeToExplode)
             {
-                Debug.Log("Boom");
+                if (dataSpaceShip.verticalVelocity > maxYvelToCrash)
+                {
+                    crashAnimator.SetBool("Crash", true);
+                    StartCoroutine(PlayerDies());
+                }
             }
 
-            Debug.Log("Piso piso piso xd");
+            Debug.Log("Good Landing");
         }
+    }
+
+    IEnumerator PlayerDies()
+    {
+        yield return new WaitForSeconds(1);
+        crashAnimator.SetBool("Crash", true);
+        Destroy(gameObject);
     }
 }

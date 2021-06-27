@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   propulsion: {fileID: 7786842315264483567}
+  crashAnimator: {fileID: 6280135159061288860}
   dataSpaceShip: {fileID: 1671195701582767418}
   minDegreeToExplode: 15
 --- !u!114 &1671195701582767418
@@ -111,6 +112,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   altitude: 0
+  verticalVelocity: 0
+  horizontalVelocity: 0
   gravityInfluence: 0.7
   fuel: 5000
   propulsionPower: 1000
@@ -125,6 +128,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1671195701854894417}
   - component: {fileID: 1671195701854894416}
+  - component: {fileID: 6280135159061288860}
   m_Layer: 2
   m_Name: PlayerSprite
   m_TagString: Untagged
@@ -197,6 +201,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &6280135159061288860
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671195701854894419}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 86200d5c581636a46a15e410f5f2e0f5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &7826675601743554649
 GameObject:
   m_ObjectHideFlags: 0
