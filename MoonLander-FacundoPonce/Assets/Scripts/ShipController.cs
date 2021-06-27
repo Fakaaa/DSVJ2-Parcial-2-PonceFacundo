@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ShipController : MonoBehaviour
 {
@@ -15,7 +14,7 @@ public class ShipController : MonoBehaviour
 
     void Start()
     {
-        maxYvelToCrash = -15f;
+        maxYvelToCrash = 20f;
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
@@ -68,23 +67,17 @@ public class ShipController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            if(transform.eulerAngles.z > minDegreeToExplode || transform.eulerAngles.z < -minDegreeToExplode)
+            if(Mathf.Abs(transform.eulerAngles.z) > minDegreeToExplode)
             {
-                if (dataSpaceShip.verticalVelocity > maxYvelToCrash)
+                if (Mathf.Abs(dataSpaceShip.verticalVelocity) > maxYvelToCrash)
                 {
                     crashAnimator.SetBool("Crash", true);
-                    StartCoroutine(PlayerDies());
+                    Destroy(gameObject,0.5f);
+                    Debug.Log("Bad Landing");
                 }
             }
 
             Debug.Log("Good Landing");
         }
-    }
-
-    IEnumerator PlayerDies()
-    {
-        yield return new WaitForSeconds(1);
-        crashAnimator.SetBool("Crash", true);
-        Destroy(gameObject);
     }
 }
