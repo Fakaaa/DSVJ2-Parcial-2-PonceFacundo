@@ -18,6 +18,7 @@ public class ShipController : MonoBehaviour
         maxYvelToCrash = -20f;
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
+        myBody.isKinematic = false;
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
@@ -75,14 +76,33 @@ public class ShipController : MonoBehaviour
 
             if(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
             {
+                myBody.isKinematic = true;
                 crashAnimator.SetBool("Crash", true);
+                propulsion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
                 Destroy(gameObject, 0.5f);
                 Debug.Log("Bad Landing");
             }
             else
             {
                 GameManager.Get()?.IncreaseScore(250);
-                Debug.Log("Good Landing");
+            }
+        }
+        else
+        {
+            switch (collision.gameObject.tag)   
+            {
+                case "X2":
+                    GameManager.Get()?.IncreaseScore(250 * 2);
+                    break;
+                case "X4":
+                    GameManager.Get()?.IncreaseScore(250 * 4);
+                    break;
+                case "X6":
+                    GameManager.Get()?.IncreaseScore(250 * 6);
+                    break;
+                case "X8":
+                    GameManager.Get()?.IncreaseScore(250 * 8);
+                    break;
             }
         }
     }

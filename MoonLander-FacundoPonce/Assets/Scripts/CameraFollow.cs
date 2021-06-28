@@ -59,7 +59,6 @@ namespace CameraFollowScript
             if (lookAtThat != null)
             {
                 posToMoveTowards = lookAtThat.position;
-
                 transform.position = Vector2.Lerp(transform.position, posToMoveTowards, Time.deltaTime * speedFollow);
                 Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, sizeCamera, Time.deltaTime * speedFollow);
             }

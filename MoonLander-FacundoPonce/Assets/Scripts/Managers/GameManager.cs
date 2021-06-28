@@ -10,10 +10,11 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField] public List<Score> highScores;
     [SerializeField] public int actualLevel;
 
+    [SerializeField] public MapRandomizer randomizer;
     [SerializeField] private CanvasGroup blendPerLevel;
     private float amountBlend = 0.5f;
 
-    IEnumerator WaitForBlend()
+    IEnumerator ChangeLevelRutine()
     {
         while (blendPerLevel.alpha < 1)
         {
@@ -22,17 +23,20 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
 
         yield return new WaitForSeconds(1);
+        StartCoroutine(SceneLoader.Get()?.AsynchronousLoad2("Game"));
 
         while (blendPerLevel.alpha > 0)
         {
             blendPerLevel.alpha -= Mathf.Clamp(amountBlend, 0, 1) * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+
+        randomizer.ChoosRandomLevel();
     }
     public void ChangeLevel()
     {
         actualLevel++;
-        StartCoroutine(WaitForBlend());
+        StartCoroutine(ChangeLevelRutine());
     }
     public void IncreaseScore(int scoreAmount)
     {
