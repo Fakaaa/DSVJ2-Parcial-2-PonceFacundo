@@ -12616,7 +12616,12 @@ PrefabInstance:
     - target: {fileID: 1671195701582767419, guid: 748f5aae6fc04cb45863bf75b3edf4bc,
         type: 3}
       propertyPath: minDegreeToExplode
-      value: 30
+      value: 0.35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1671195701582767421, guid: 748f5aae6fc04cb45863bf75b3edf4bc,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1671195701582767422, guid: 748f5aae6fc04cb45863bf75b3edf4bc,
         type: 3}

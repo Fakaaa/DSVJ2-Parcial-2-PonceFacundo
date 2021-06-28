@@ -5,16 +5,17 @@ public class ShipController : MonoBehaviour
     [SerializeField] ParticleSystem propulsion;
     [SerializeField] Animator crashAnimator;
     public ShipData dataSpaceShip;
-    public float minDegreeToExplode;
     private Rigidbody2D myBody;
 
     private Ray rayToGround;
     private float maxHeight;
+    private float minDegreeToExplode;
     private float maxYvelToCrash;
 
     void Start()
     {
-        maxYvelToCrash = 20f;
+        minDegreeToExplode = 0.35f;
+        maxYvelToCrash = -20f;
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
@@ -24,6 +25,9 @@ public class ShipController : MonoBehaviour
     {
         RotateShip();
         ImpulseShip();
+
+        Debug.Log(minDegreeToExplode);
+        Debug.Log(Mathf.Abs(myBody.transform.rotation.z));
 
         CheckIfIsNearGround();
     }
@@ -46,19 +50,19 @@ public class ShipController : MonoBehaviour
     void RotateShip()
     {
         if (Input.GetKey(KeyCode.A))
-            transform.Rotate(transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
+            myBody.transform.Rotate(transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
         if (Input.GetKey(KeyCode.D))
-            transform.Rotate(-transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
+            myBody.transform.Rotate(-transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
     }
 
     void CheckIfIsNearGround()
     {
-        rayToGround = new Ray(transform.position, Vector3.down * maxHeight);
+        rayToGround = new Ray(myBody.transform.position, Vector3.down * maxHeight);
         Debug.DrawRay(rayToGround.origin, rayToGround.direction * maxHeight);
 
         RaycastHit2D hitInfo = Physics2D.Raycast(rayToGround.origin, rayToGround.direction, maxHeight);
 
-        dataSpaceShip.altitude = Vector2.Distance(transform.position, hitInfo.point);
+        dataSpaceShip.altitude = Vector2.Distance(myBody.transform.position, hitInfo.point);
         dataSpaceShip.verticalVelocity = myBody.velocity.y;
         dataSpaceShip.horizontalVelocity = myBody.velocity.x;
     }
@@ -67,13 +71,9 @@ public class ShipController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            if(Mathf.Abs(transform.eulerAngles.z) > minDegreeToExplode)
-            {
-                crashAnimator.SetBool("Crash", true);
-                Destroy(gameObject, 0.5f);
-                Debug.Log("Bad Landing");
-            }
-            else if (Mathf.Abs(dataSpaceShip.verticalVelocity) > maxYvelToCrash)
+            Debug.Log(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode);
+
+            if(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
             {
                 crashAnimator.SetBool("Crash", true);
                 Destroy(gameObject, 0.5f);
