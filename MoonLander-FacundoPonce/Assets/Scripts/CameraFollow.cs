@@ -7,13 +7,13 @@ namespace CameraFollowScript
         [SerializeField] public Transform lookAtThat;
 
         [SerializeField] [Range(0.5f, 9)] public float speedFollow;
-        [SerializeField] [Range(3, 800)] public float zoomDistance;
         [SerializeField] [Range(30, 70)] public float maxAltitudToZoom;
         [SerializeField] public bool followPlayer;
-        private Vector3 zoom;
+        private float sizeCamera;
+        private float initialSizeCamera;
 
-        private Vector3 posToMoveTowards;
-        private Vector3 initialCameraPosition;
+        private Vector2 posToMoveTowards;
+        private Vector2 initialCameraPosition;
 
         private ShipData player;
 
@@ -21,6 +21,7 @@ namespace CameraFollowScript
         {
             player = lookAtThat.GetComponent<ShipData>();
             initialCameraPosition = transform.position;
+            initialSizeCamera = Camera.main.orthographicSize;
         }
         public void LookAtPlayer()
         {
@@ -33,7 +34,7 @@ namespace CameraFollowScript
                 if (player.altitude < maxAltitudToZoom)
                 {
                     followPlayer = true;
-                    posToMoveTowards = lookAtThat.position + zoom;
+                    posToMoveTowards = lookAtThat.position;
                 }
                 else
                     followPlayer = false;
@@ -47,18 +48,20 @@ namespace CameraFollowScript
             }
             else
             {
-                transform.position = Vector3.Lerp(transform.position, initialCameraPosition, Time.deltaTime * speedFollow);
+                transform.position = Vector2.Lerp(transform.position, initialCameraPosition, Time.deltaTime * speedFollow);
+                Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, initialSizeCamera, Time.deltaTime * speedFollow);
             }
         }
         public void FocusToTargetAndMove()
         {
-            zoom = new Vector3(0, 0, -zoomDistance);
+            sizeCamera = initialSizeCamera*0.5f;
 
             if (lookAtThat != null)
             {
-                posToMoveTowards = lookAtThat.position + zoom;
+                posToMoveTowards = lookAtThat.position;
 
-                transform.position = Vector3.Lerp(transform.position, posToMoveTowards, Time.deltaTime * speedFollow);
+                transform.position = Vector2.Lerp(transform.position, posToMoveTowards, Time.deltaTime * speedFollow);
+                Camera.main.orthographicSize = Mathf.Lerp(Camera.main.orthographicSize, sizeCamera, Time.deltaTime * speedFollow);
             }
         }
     }

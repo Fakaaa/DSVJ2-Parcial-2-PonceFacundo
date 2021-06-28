@@ -69,15 +69,21 @@ public class ShipController : MonoBehaviour
         {
             if(Mathf.Abs(transform.eulerAngles.z) > minDegreeToExplode)
             {
-                if (Mathf.Abs(dataSpaceShip.verticalVelocity) > maxYvelToCrash)
-                {
-                    crashAnimator.SetBool("Crash", true);
-                    Destroy(gameObject,0.5f);
-                    Debug.Log("Bad Landing");
-                }
+                crashAnimator.SetBool("Crash", true);
+                Destroy(gameObject, 0.5f);
+                Debug.Log("Bad Landing");
             }
-
-            Debug.Log("Good Landing");
+            else if (Mathf.Abs(dataSpaceShip.verticalVelocity) > maxYvelToCrash)
+            {
+                crashAnimator.SetBool("Crash", true);
+                Destroy(gameObject, 0.5f);
+                Debug.Log("Bad Landing");
+            }
+            else
+            {
+                GameManager.Get()?.IncreaseScore(250);
+                Debug.Log("Good Landing");
+            }
         }
     }
 }
