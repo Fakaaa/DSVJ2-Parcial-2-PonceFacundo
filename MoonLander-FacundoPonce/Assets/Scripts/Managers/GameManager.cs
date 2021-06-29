@@ -6,11 +6,12 @@ using TMPro;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    [Header("PLAYER MAGNAMENT")]
+    [Header("IN GAME MAGNAMENT")]
     [SerializeField] public bool playerAlive;
     [SerializeField] public int playerScore;
     [SerializeField] public List<Score> highScores;
     [SerializeField] public int pointsPerLand;
+    [SerializeField] public bool gamePaused;
 
     [Header("LEVEL MAGNAMENT")]
     [SerializeField] public int actualLevel;
@@ -22,12 +23,32 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [SerializeField] public SceneLoader sceneLoader;
     private float amountBlend = 0.5f;
 
+    public delegate void PauseGameEvent();
+    public PauseGameEvent isGamePaused;
 
     private void Start()
     {
         blendPerLevel.gameObject.SetActive(false);
     }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+            PauseGame();
 
+        if (gamePaused)
+            Time.timeScale = 0;
+        else
+            Time.timeScale = 1;
+    }
+    public void ResumeGame()
+    {
+        gamePaused = false;
+    }
+    public void PauseGame()
+    {
+        isGamePaused?.Invoke();
+        gamePaused = !gamePaused;
+    }
     public void QuitGame()
     {
         sceneLoader.QuitGame();

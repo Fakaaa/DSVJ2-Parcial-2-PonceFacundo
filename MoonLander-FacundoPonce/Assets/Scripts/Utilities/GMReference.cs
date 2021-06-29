@@ -15,10 +15,15 @@ public class GMReference : MonoBehaviour
     }
     public void MainMenu()
     {
+        referenceManager?.ResumeGame();
         referenceManager?.ChangeSceneByName("MainMenu");
     }
     public void QuitGame()
     {
         referenceManager?.QuitGame();
+    }
+    public void PauseGame()
+    {
+        referenceManager?.PauseGame();
     }
 }
