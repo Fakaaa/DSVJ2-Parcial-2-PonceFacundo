@@ -7,7 +7,6 @@ public class ShipController : MonoBehaviour
     public ShipData dataSpaceShip;
     private Rigidbody2D myBody;
 
-    private bool landed;
     public delegate void ShipLanded(ref bool landed);
     public static ShipLanded shipLanded;
 
@@ -23,13 +22,13 @@ public class ShipController : MonoBehaviour
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.isKinematic = false;
-        landed = false;
+        dataSpaceShip.landed = false;
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
     void Update()
     {
-        if(!landed)
+        if(!dataSpaceShip.landed)
         {
             RotateShip();
             ImpulseShip();
@@ -82,6 +81,9 @@ public class ShipController : MonoBehaviour
                 myBody.isKinematic = true;
                 crashAnimator.SetBool("Crash", true);
                 propulsion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+
+                dataSpaceShip.landed = false;
+                shipLanded?.Invoke(ref dataSpaceShip.landed);
                 Destroy(gameObject, 0.5f);
                 Debug.Log("Bad Landing");
             }
@@ -105,8 +107,8 @@ public class ShipController : MonoBehaviour
                         GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand());
                         break;
                 }
-                landed = true;
-                shipLanded?.Invoke(ref landed);
+                dataSpaceShip.landed = true;
+                shipLanded?.Invoke(ref dataSpaceShip.landed);
             }
         }
     }

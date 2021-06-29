@@ -2,22 +2,39 @@
 using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
+    [Header("PLAYER MAGNAMENT")]
     [SerializeField] public bool playerAlive;
     [SerializeField] public int playerScore;
     [SerializeField] public List<Score> highScores;
-    [SerializeField] public int actualLevel;
-
     [SerializeField] public int pointsPerLand;
 
+    [Header("LEVEL MAGNAMENT")]
+    [SerializeField] public int actualLevel;
+    [SerializeField] private TextMeshProUGUI levelUI;
     [SerializeField] public MapRandomizer randomizer;
     [SerializeField] private CanvasGroup blendPerLevel;
+
+    [Header("SCENE MAGNAMENT")]
+    [SerializeField] public SceneLoader sceneLoader;
     private float amountBlend = 0.5f;
 
-    IEnumerator ChangeLevelRutine()
+
+    private void Start()
     {
+        blendPerLevel.gameObject.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        sceneLoader.QuitGame();
+    }
+    IEnumerator ChangeScene(string nameScene)
+    {
+        blendPerLevel.gameObject.SetActive(true);
         while (blendPerLevel.alpha < 1)
         {
             blendPerLevel.alpha += Mathf.Clamp(amountBlend, 0, 1) * Time.deltaTime;
@@ -26,25 +43,34 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         yield return new WaitForSeconds(1);
 
-        StartCoroutine(SceneLoader.Get()?.AsynchronousLoad("Game"));
+        StartCoroutine(sceneLoader.AsynchronousLoad(nameScene));
 
         yield return new WaitForSeconds(1);
-        randomizer.ChoosRandomLevel();
+        if(nameScene != "MainMenu")
+            randomizer.ChoosRandomLevel();
 
         while (blendPerLevel.alpha > 0)
         {
             blendPerLevel.alpha -= Mathf.Clamp(amountBlend, 0, 1) * Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
+        blendPerLevel.gameObject.SetActive(false);
     }
     public int GetPointsPerLand()
     {
         return pointsPerLand;
     }
+    public void ChangeSceneByName(string scene)
+    {
+        if (scene == "MainMenu")
+            actualLevel = 0;
+        StartCoroutine(ChangeScene(scene));
+    }
     public void ChangeLevel()
     {
         actualLevel++;
-        StartCoroutine(ChangeLevelRutine());
+        levelUI.text = "LEVEL:" + actualLevel.ToString();
+        StartCoroutine(ChangeScene("Game"));
     }
     public void IncreaseScore(int scoreAmount)
     {

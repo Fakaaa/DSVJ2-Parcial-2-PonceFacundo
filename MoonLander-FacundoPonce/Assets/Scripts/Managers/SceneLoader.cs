@@ -3,10 +3,15 @@ using MonoBehaviourSingletonScript;
 using System.Collections;
 using UnityEngine;
 
-public class SceneLoader : MonoBehaviourSingleton<SceneLoader>
+public class SceneLoader : MonoBehaviour
 {
     [SerializeField] AsyncOperation sceneState;
 
+
+    public void LoadAsyncScene(string nameScene)
+    {
+        StartCoroutine(AsynchronousLoad(nameScene));
+    }
     public void LoadScene(string nameScene)
     {
         SceneManager.LoadScene(nameScene);

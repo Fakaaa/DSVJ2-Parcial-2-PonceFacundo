@@ -38,8 +38,6 @@ namespace CameraFollowScript
                 }
                 else
                     followPlayer = false;
-
-                Debug.Log("Uwu");
             }
 
             if (followPlayer)
