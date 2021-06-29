@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviourSingleton<SceneLoader>
 {
+    [SerializeField] AsyncOperation sceneState;
+
     public void LoadScene(string nameScene)
     {
         SceneManager.LoadScene(nameScene);
@@ -13,29 +15,20 @@ public class SceneLoader : MonoBehaviourSingleton<SceneLoader>
     {
         yield return null;
 
-        AsyncOperation ao = SceneManager.LoadSceneAsync(scene);
-        ao.allowSceneActivation = false;
+        sceneState = SceneManager.LoadSceneAsync(scene);
+        sceneState.allowSceneActivation = false;
 
-        while (!ao.isDone)
-            yield return null;
-
-        ao.allowSceneActivation = true;
-    }
-
-    public IEnumerator AsynchronousLoad2(string scene)
-    {
-        yield return null;
-
-        AsyncOperation ao = SceneManager.LoadSceneAsync(scene);
-        ao.allowSceneActivation = false;
-
-        while (!ao.isDone)
+        while (!sceneState.isDone)
         {
-            if (ao.progress >= 0.9f)
-                ao.allowSceneActivation = true;
+            if (sceneState.progress >= 0.9f)
+                sceneState.allowSceneActivation = true;
 
             yield return null;
         }
+    }
+    public AsyncOperation GetSceneState()
+    {
+        return sceneState;
     }
 
     public void QuitGame()

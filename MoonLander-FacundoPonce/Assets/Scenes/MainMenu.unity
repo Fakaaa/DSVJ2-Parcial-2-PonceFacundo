@@ -419,6 +419,11 @@ PrefabInstance:
       propertyPath: blendPerLevel
       value: 
       objectReference: {fileID: 4373894129127145547}
+    - target: {fileID: 8925557094985278327, guid: 1448cfa25e26d8343badf531923e71aa,
+        type: 3}
+      propertyPath: pointsPerLand
+      value: 200
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1448cfa25e26d8343badf531923e71aa, type: 3}
 --- !u!114 &403835839 stripped

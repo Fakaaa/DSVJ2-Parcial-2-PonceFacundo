@@ -155,8 +155,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -7736370526425713481, guid: 20d35520b0343734a8e57bdaf85d05f0,
-    type: 3}
+  m_Sprite: {fileID: 432378195197061103, guid: ed01cabd7ebc4b341ba484a251f1fa9d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -449,7 +448,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029707739844441656}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.18, y: -13.11, z: 0}
+  m_LocalPosition: {x: 16.18, y: -13.39, z: 0}
   m_LocalScale: {x: 0.9913351, y: 0.89328855, z: 1}
   m_Children: []
   m_Father: {fileID: 712237013610303103}
@@ -516,9 +515,9 @@ GameObject:
   - component: {fileID: 1929408260427333625}
   - component: {fileID: 1929408260427333624}
   - component: {fileID: 1929408260427333626}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LandPlatform_X2
-  m_TagString: X2
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -625,9 +624,9 @@ GameObject:
   - component: {fileID: 7262692374804930122}
   - component: {fileID: 3936153560045142471}
   - component: {fileID: 4194308978520097347}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LandPlatform_X2.2
-  m_TagString: X2
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -748,7 +747,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3969595274343967247}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -16.16, y: -6.7, z: 0}
+  m_LocalPosition: {x: -16.16, y: -7, z: 0}
   m_LocalScale: {x: 0.9913351, y: 0.89328855, z: 1}
   m_Children: []
   m_Father: {fileID: 712237013610303103}
@@ -815,9 +814,9 @@ GameObject:
   - component: {fileID: 3593041008729638004}
   - component: {fileID: 4945019545794620066}
   - component: {fileID: 585496942383843843}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: LandPlatform_X6
-  m_TagString: X6
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -924,7 +923,7 @@ GameObject:
   - component: {fileID: 4797368807876752346}
   - component: {fileID: 4797368807876752348}
   - component: {fileID: 4797368807876752347}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1059,7 +1058,7 @@ GameObject:
   - component: {fileID: 4797368808188152498}
   - component: {fileID: 4797368808188152497}
   - component: {fileID: 4797368808188152496}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1157,7 @@ GameObject:
   - component: {fileID: 8848333030710793484}
   - component: {fileID: 4816354737902180197}
   - component: {fileID: 9027885032231410496}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1256,7 +1255,7 @@ GameObject:
   - component: {fileID: 6464519118724160708}
   - component: {fileID: 7130463375063621374}
   - component: {fileID: 3234763947182965445}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1391,7 +1390,7 @@ GameObject:
   - component: {fileID: 1652036592635235513}
   - component: {fileID: 2654028007724258148}
   - component: {fileID: 4969987787914074983}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1489,7 +1488,7 @@ GameObject:
   - component: {fileID: 6240291348686326774}
   - component: {fileID: 7934919442983405083}
   - component: {fileID: 3669158522472269094}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}

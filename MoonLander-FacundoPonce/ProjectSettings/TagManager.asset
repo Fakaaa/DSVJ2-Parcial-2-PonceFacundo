@@ -5,10 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - Floor
-  - X2
-  - x4
-  - X6
-  - X8
   layers:
   - Default
   - TransparentFX
@@ -18,10 +14,10 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
+  - X2
+  - X4
+  - X6
+  - X8
   - 
   - 
   - 

@@ -7,6 +7,10 @@ public class ShipController : MonoBehaviour
     public ShipData dataSpaceShip;
     private Rigidbody2D myBody;
 
+    private bool landed;
+    public delegate void ShipLanded(ref bool landed);
+    public static ShipLanded shipLanded;
+
     private Ray rayToGround;
     private float maxHeight;
     private float minDegreeToExplode;
@@ -19,16 +23,17 @@ public class ShipController : MonoBehaviour
         maxHeight = 400;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.isKinematic = false;
+        landed = false;
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
     void Update()
     {
-        RotateShip();
-        ImpulseShip();
-
-        Debug.Log(minDegreeToExplode);
-        Debug.Log(Mathf.Abs(myBody.transform.rotation.z));
+        if(!landed)
+        {
+            RotateShip();
+            ImpulseShip();
+        }
 
         CheckIfIsNearGround();
     }
@@ -72,8 +77,6 @@ public class ShipController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            Debug.Log(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode);
-
             if(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
             {
                 myBody.isKinematic = true;
@@ -84,25 +87,26 @@ public class ShipController : MonoBehaviour
             }
             else
             {
-                GameManager.Get()?.IncreaseScore(250);
-            }
-        }
-        else
-        {
-            switch (collision.gameObject.tag)   
-            {
-                case "X2":
-                    GameManager.Get()?.IncreaseScore(250 * 2);
-                    break;
-                case "X4":
-                    GameManager.Get()?.IncreaseScore(250 * 4);
-                    break;
-                case "X6":
-                    GameManager.Get()?.IncreaseScore(250 * 6);
-                    break;
-                case "X8":
-                    GameManager.Get()?.IncreaseScore(250 * 8);
-                    break;
+                switch (collision.gameObject.layer)
+                {
+                    case 8:
+                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 2);
+                        break;
+                    case 9:
+                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 4);
+                        break;
+                    case 10:
+                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 6);
+                        break;
+                    case 11:
+                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 8);
+                        break;
+                    default:
+                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand());
+                        break;
+                }
+                landed = true;
+                shipLanded?.Invoke(ref landed);
             }
         }
     }

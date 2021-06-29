@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8989155221828292643}
   - component: {fileID: 5658724425776992254}
   - component: {fileID: 3362537474989606909}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 4380635058582607724}
   - component: {fileID: 309812390324198017}
   - component: {fileID: 6393329950452783548}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 3739191004512796766}
   - component: {fileID: 623375960691802724}
   - component: {fileID: 5095509758820015711}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -378,7 +378,7 @@ GameObject:
   - component: {fileID: 2936767006493142848}
   - component: {fileID: 2936767006493142854}
   - component: {fileID: 2936767006493142849}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ScoreMulti
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -513,7 +513,7 @@ GameObject:
   - component: {fileID: 2936767006802449960}
   - component: {fileID: 2936767006802449963}
   - component: {fileID: 2936767006802449962}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -612,7 +612,7 @@ GameObject:
   - component: {fileID: 1196070231278832022}
   - component: {fileID: 2920006662447811583}
   - component: {fileID: 1665115879092520922}
-  m_Layer: 5
+  m_Layer: 11
   m_Name: MultiplerPlatform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,9 +710,9 @@ GameObject:
   - component: {fileID: 6597729790330525934}
   - component: {fileID: 3383028609838462520}
   - component: {fileID: 7093954288112227993}
-  m_Layer: 0
-  m_Name: LandPlatform_X6
-  m_TagString: X6
+  m_Layer: 11
+  m_Name: LandPlatform_X8
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -833,7 +833,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6720503509395142293}
   m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -16.16, y: -13.09, z: 0}
+  m_LocalPosition: {x: -16.1, y: -13.35, z: 0}
   m_LocalScale: {x: 0.9913351, y: 0.89328855, z: 1}
   m_Children: []
   m_Father: {fileID: 7183395617802326757}
@@ -914,7 +914,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7183395617444593621}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.014, y: -13.18, z: 0}
+  m_LocalPosition: {x: 0.32, y: -13.21, z: 0}
   m_LocalScale: {x: 0.99468833, y: 0.89328855, z: 1}
   m_Children: []
   m_Father: {fileID: 7183395617802326757}
@@ -1044,7 +1044,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: -2862883476280444562, guid: 20d35520b0343734a8e57bdaf85d05f0,
+  m_Sprite: {fileID: -706893718565523258, guid: ed01cabd7ebc4b341ba484a251f1fa9d,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1458,7 +1458,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7212675541712890530}
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 16.18, y: -7.95, z: 0}
+  m_LocalPosition: {x: 16.18, y: -8.21, z: 0}
   m_LocalScale: {x: 0.9913351, y: 0.89328855, z: 1}
   m_Children: []
   m_Father: {fileID: 7183395617802326757}
@@ -1525,9 +1525,9 @@ GameObject:
   - component: {fileID: 8112233194502071139}
   - component: {fileID: 8112233194502071138}
   - component: {fileID: 8112233194502071136}
-  m_Layer: 0
-  m_Name: LandPlatform_X2
-  m_TagString: X2
+  m_Layer: 9
+  m_Name: LandPlatform_X4
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1634,9 +1634,9 @@ GameObject:
   - component: {fileID: 1051757326454457040}
   - component: {fileID: 6697650092074425693}
   - component: {fileID: 5793878997120589529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: LandPlatform_X2.2
-  m_TagString: X2
+  m_TagString: Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
