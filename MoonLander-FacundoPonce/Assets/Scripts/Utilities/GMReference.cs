@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class GMReference : MonoBehaviour
 {
     private GameManager referenceManager;
+    public TextMeshProUGUI playerName;
     void Start()
     {
         referenceManager = GameManager.Get();
@@ -14,19 +16,20 @@ public class GMReference : MonoBehaviour
     {
         referenceManager.CallUpdateHighScore();
     }
-
     public void ChangeLevel()
     {
         referenceManager?.ChangeLevel();
     }
-
+    public void SetPlayerName()
+    {
+        referenceManager?.SetNamePlayer(playerName.text);
+    }
     public void MainMenu()
     {
         referenceManager?.ResumeGame();
         referenceManager?.ResetScore();
         referenceManager?.ChangeSceneByName("MainMenu");
     }
-
     public void Credits()
     {
         referenceManager?.ChangeSceneByName("Credits");

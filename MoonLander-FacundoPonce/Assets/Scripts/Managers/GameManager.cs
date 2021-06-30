@@ -1,5 +1,4 @@
 ﻿using MonoBehaviourSingletonScript;
-using System.Collections.Generic;
 using System.Collections;
 using UnityEngine;
 using TMPro;
@@ -9,6 +8,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     [Header("IN GAME MAGNAMENT")]
     [SerializeField] public bool playerAlive;
     [SerializeField] public int playerActualScore;
+    [SerializeField] public string playerName;
     [SerializeField] public Score playerHighScore;
     [SerializeField] public int pointsPerLand;
     [SerializeField] public bool gamePaused;
@@ -51,6 +51,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     //========================================
     //SCORE MAGNAMENT
     //========================================
+    public void SetNamePlayer(string name)
+    {
+        playerName = name;
+    }
     public void LoadAndSaveScores()
     {
         scoreSaver = new SaveScore();
@@ -87,7 +91,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         playerActualScore += scoreAmount;
         if (playerActualScore > playerHighScore.score)
         {
-            SetHighScore(playerHighScore.namePlayer, playerActualScore);
+            SetHighScore(playerName, playerActualScore);
             scoreSaver.SaveScoreAmount(playerHighScore);
             CallUpdateHighScore();
         }
