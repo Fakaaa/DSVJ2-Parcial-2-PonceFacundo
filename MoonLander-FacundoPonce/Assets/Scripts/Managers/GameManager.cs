@@ -8,8 +8,8 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 {
     [Header("IN GAME MAGNAMENT")]
     [SerializeField] public bool playerAlive;
-    [SerializeField] public int playerScore;
-    [SerializeField] public List<Score> highScores;
+    [SerializeField] public int playerActualScore;
+    [SerializeField] public Score playerHighScore;
     [SerializeField] public int pointsPerLand;
     [SerializeField] public bool gamePaused;
 
@@ -24,11 +24,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     private bool finalSplashPlayed;
     private float amountBlend = 0.5f;
 
+    private SaveScore scoreSaver;
     public delegate void PauseGameEvent();
     public PauseGameEvent isGamePaused;
+    public delegate void UpdateHighScoreUI(ref Score playerHS);
+    public UpdateHighScoreUI updateHSUI;
 
+    //UNITY FUNCIONTS
+    //========================================
     private void Start()
     {
+        LoadAndSaveScores();   
         finalSplashPlayed = false;
         blendPerLevel.gameObject.SetActive(false);
     }
@@ -42,6 +48,66 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         else
             Time.timeScale = 1;
     }
+    //========================================
+    //SCORE MAGNAMENT
+    //========================================
+    public void LoadAndSaveScores()
+    {
+        scoreSaver = new SaveScore();
+        playerHighScore = scoreSaver.LoadScoresFromJson();
+
+        if(playerHighScore != null)
+        {
+            SetHighScore(playerHighScore.namePlayer, playerHighScore.score);
+        }
+        else
+        {
+            playerHighScore = new Score();
+            playerHighScore.score = 0;
+            playerHighScore.namePlayer = "Nan";
+            scoreSaver.SaveScoreAmount(playerHighScore);
+            SetHighScore(playerHighScore.namePlayer, playerHighScore.score);
+        }
+        CallUpdateHighScore();
+    }
+    public void CallUpdateHighScore()
+    {
+        updateHSUI?.Invoke(ref playerHighScore);
+    }
+    public void ResetScore()
+    {
+        playerActualScore = 0;
+    }
+    public int GetPointsPerLand()
+    {
+        return pointsPerLand;
+    }
+    public void IncreaseScore(int scoreAmount)
+    {
+        playerActualScore += scoreAmount;
+        if (playerActualScore > playerHighScore.score)
+        {
+            SetHighScore(playerHighScore.namePlayer, playerActualScore);
+            scoreSaver.SaveScoreAmount(playerHighScore);
+            CallUpdateHighScore();
+        }
+    }
+    public int GetScorePlayer()
+    {
+        return playerActualScore;
+    }
+    public void SetHighScore( string namePlayer, int score)
+    {
+        playerHighScore.namePlayer = namePlayer;
+        playerHighScore.score = score;
+    }
+    public Score GetHighScore()
+    {
+        return playerHighScore;
+    }
+    //========================================
+    //SCENE MAGNAMENT
+    //========================================
     public bool WasFinalSplashPlayed()
     {
         return finalSplashPlayed;
@@ -49,23 +115,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void FinalSplash()
     {
         finalSplashPlayed = true;
-    }
-    public void ResetScore()
-    {
-        playerScore = 0;
-    }
-    public void ResumeGame()
-    {
-        gamePaused = false;
-    }
-    public void PauseGame()
-    {
-        isGamePaused?.Invoke();
-        gamePaused = !gamePaused;
-    }
-    public void QuitGame()
-    {
-        sceneLoader.QuitGame();
     }
     IEnumerator ChangeScene(string nameScene)
     {
@@ -81,7 +130,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
         yield return new WaitForSeconds(0.5f);
 
-        StartCoroutine(sceneLoader.AsynchronousLoad(nameScene));
+        sceneLoader.LoadScene(nameScene);
 
         yield return new WaitForSeconds(0.5f);
         if(nameScene != "MainMenu" && nameScene != "Credits")
@@ -98,35 +147,33 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         }
         blendPerLevel.gameObject.SetActive(false);
     }
-    public int GetPointsPerLand()
-    {
-        return pointsPerLand;
-    }
     public void ChangeSceneByName(string scene)
     {
         if (scene == "MainMenu")
             actualLevel = 0;
         StartCoroutine(ChangeScene(scene));
     }
+    //========================================
+    //GAME MAGNAMENT
+    //========================================
     public void ChangeLevel()
     {
         actualLevel++;
         levelUI.text = "LEVEL:" + actualLevel.ToString();
         StartCoroutine(ChangeScene("Game"));
     }
-    public void IncreaseScore(int scoreAmount)
+    public void ResumeGame()
     {
-        playerScore += scoreAmount;
+        gamePaused = false;
     }
-    public int GetScorePlayer()
+    public void PauseGame()
     {
-        return playerScore;
+        isGamePaused?.Invoke();
+        gamePaused = !gamePaused;
     }
-    public void SetHighScore( string namePlayer, int score)
+    public void QuitGame()
     {
-        Score newHighScore = new Score();
-        newHighScore.namePlayer = namePlayer;
-        newHighScore.score = score;
-        highScores.Add(newHighScore);
+        sceneLoader.QuitGame();
     }
+    //========================================
 }

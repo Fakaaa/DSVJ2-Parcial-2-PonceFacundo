@@ -10,6 +10,11 @@ public class GMReference : MonoBehaviour
             referenceManager = FindObjectOfType<GameManager>();
     }   
 
+    public void SeeHighScore()
+    {
+        referenceManager.CallUpdateHighScore();
+    }
+
     public void ChangeLevel()
     {
         referenceManager?.ChangeLevel();

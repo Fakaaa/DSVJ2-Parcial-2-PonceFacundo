@@ -625,7 +625,7 @@ MonoBehaviour:
     en las c\xE9lebres palabras de Armstrong, es tal vez la imagen m\xE1s recordada
     de Apolo 11. . . . .\n\n-----------------------------------------\n\nDeveloper\nFacundo
     Mateo Ponce\n\nArt\nPlataforma MrGecko en OpenGameArt\r\nBG screamingbrain en
-    OpenGameArt\n\n-----------------------------------------"
+    OpenGameArt\nbevouliin.com en OpenGameArt\n\n-----------------------------------------"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d425720b0628c144c9f9a44c4ff1d9ed, type: 2}
   m_sharedMaterial: {fileID: 6755089829560223399, guid: d425720b0628c144c9f9a44c4ff1d9ed,
@@ -1000,8 +1000,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1244214319}
   m_HandleRect: {fileID: 1244214318}
   m_Direction: 2
-  m_Value: 0.000000081963044
-  m_Size: 0.30182654
+  m_Value: -0.000000027321022
+  m_Size: 0.30187503
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1815,7 +1815,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -542, y: 0}
+  m_AnchoredPosition: {x: -542, y: 1117}
   m_SizeDelta: {x: 1084, y: 1600}
   m_Pivot: {x: 0, y: 1}
 --- !u!111 &1926140716
