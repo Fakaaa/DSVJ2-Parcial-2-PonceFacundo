@@ -19,7 +19,7 @@ public class ShipController : MonoBehaviour
     {
         minDegreeToExplode = 0.35f;
         maxYvelToCrash = -20f;
-        maxHeight = 400;
+        maxHeight = 600;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.isKinematic = false;
         dataSpaceShip.landed = false;
@@ -71,21 +71,23 @@ public class ShipController : MonoBehaviour
         dataSpaceShip.verticalVelocity = myBody.velocity.y;
         dataSpaceShip.horizontalVelocity = myBody.velocity.x;
     }
+    public void DestroyShip()
+    {
+        myBody.isKinematic = true;
+        crashAnimator.SetBool("Crash", true);
+        propulsion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
 
+        dataSpaceShip.landed = false;
+        shipLanded?.Invoke(ref dataSpaceShip.landed);
+        Destroy(gameObject, 0.5f);
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
             if(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
             {
-                myBody.isKinematic = true;
-                crashAnimator.SetBool("Crash", true);
-                propulsion.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-
-                dataSpaceShip.landed = false;
-                shipLanded?.Invoke(ref dataSpaceShip.landed);
-                Destroy(gameObject, 0.5f);
-                Debug.Log("Bad Landing");
+                DestroyShip();
             }
             else
             {
