@@ -21,7 +21,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     [Header("SCENE MAGNAMENT")]
     [SerializeField] public SceneLoader sceneLoader;
-    private bool finalSplashPlayed = false;
+    private bool finalSplashPlayed;
     private float amountBlend = 0.5f;
 
     public delegate void PauseGameEvent();
@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private void Start()
     {
+        finalSplashPlayed = false;
         blendPerLevel.gameObject.SetActive(false);
     }
     private void Update()

@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
-    [SerializeField] AsyncOperation sceneState;
-
     public void LoadAsyncScene(string nameScene)
     {
         StartCoroutine(AsynchronousLoad(nameScene));
@@ -18,22 +16,17 @@ public class SceneLoader : MonoBehaviour
     {
         yield return null;
 
-        sceneState = SceneManager.LoadSceneAsync(scene);
-        sceneState.allowSceneActivation = false;
+        AsyncOperation ao = SceneManager.LoadSceneAsync(scene);
+        ao.allowSceneActivation = false;
 
-        while (!sceneState.isDone)
+        while (!ao.isDone)
         {
-            if (sceneState.progress >= 0.9f)
-                sceneState.allowSceneActivation = true;
+            if (ao.progress >= 0.9f)
+                ao.allowSceneActivation = true;
 
             yield return null;
         }
     }
-    public AsyncOperation GetSceneState()
-    {
-        return sceneState;
-    }
-
     public void QuitGame()
     {
 #if UNITY_EDITOR
