@@ -22,6 +22,7 @@ public class ShipController : MonoBehaviour
         maxHeight = 600;
         myBody = gameObject.GetComponent<Rigidbody2D>();
         myBody.isKinematic = false;
+        myBody.transform.rotation = new Quaternion(0,0,-1.0f,1);
         dataSpaceShip.landed = false;
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
