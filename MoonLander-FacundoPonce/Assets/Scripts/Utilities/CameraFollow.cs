@@ -52,7 +52,7 @@ namespace CameraFollowScript
         }
         public void FocusToTargetAndMove()
         {
-            sizeCamera = initialSizeCamera*0.5f;
+            sizeCamera = initialSizeCamera/3;
 
             if (lookAtThat != null)
             {

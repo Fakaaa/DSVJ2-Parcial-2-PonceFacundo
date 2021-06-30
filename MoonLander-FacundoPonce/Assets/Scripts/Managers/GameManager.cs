@@ -40,6 +40,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
         else
             Time.timeScale = 1;
     }
+    public void ResetScore()
+    {
+        playerScore = 0;
+    }
     public void ResumeGame()
     {
         gamePaused = false;
@@ -55,6 +59,9 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     }
     IEnumerator ChangeScene(string nameScene)
     {
+        if (nameScene == "MainMenu" || nameScene == "Credits")
+            levelUI.gameObject.SetActive(false);
+
         blendPerLevel.gameObject.SetActive(true);
         while (blendPerLevel.alpha < 1)
         {
@@ -62,13 +69,17 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             yield return new WaitForEndOfFrame();
         }
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(0.5f);
 
         StartCoroutine(sceneLoader.AsynchronousLoad(nameScene));
 
-        yield return new WaitForSeconds(1);
-        if(nameScene != "MainMenu")
+        yield return new WaitForSeconds(0.5f);
+        if(nameScene != "MainMenu" && nameScene != "Credits")
+        {
+            if(levelUI.gameObject.activeSelf == false)
+                levelUI.gameObject.SetActive(true);
             randomizer.ChoosRandomLevel();
+        }
 
         while (blendPerLevel.alpha > 0)
         {

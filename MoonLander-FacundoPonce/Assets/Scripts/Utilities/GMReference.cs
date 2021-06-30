@@ -16,7 +16,12 @@ public class GMReference : MonoBehaviour
     public void MainMenu()
     {
         referenceManager?.ResumeGame();
+        referenceManager?.ResetScore();
         referenceManager?.ChangeSceneByName("MainMenu");
+    }
+    public void Credits()
+    {
+        referenceManager?.ChangeSceneByName("Credits");
     }
     public void QuitGame()
     {

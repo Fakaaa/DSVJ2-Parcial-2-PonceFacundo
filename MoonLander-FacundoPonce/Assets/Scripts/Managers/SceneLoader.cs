@@ -1,12 +1,10 @@
 ﻿using UnityEngine.SceneManagement;
-using MonoBehaviourSingletonScript;
 using System.Collections;
 using UnityEngine;
 
 public class SceneLoader : MonoBehaviour
 {
     [SerializeField] AsyncOperation sceneState;
-
 
     public void LoadAsyncScene(string nameScene)
     {

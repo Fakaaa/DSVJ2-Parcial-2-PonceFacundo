@@ -27,7 +27,7 @@ public class ShipController : MonoBehaviour
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(!dataSpaceShip.landed)
         {
