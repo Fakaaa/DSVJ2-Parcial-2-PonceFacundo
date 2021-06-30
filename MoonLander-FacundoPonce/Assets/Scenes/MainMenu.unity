@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 60675391}
   - component: {fileID: 60675390}
   - component: {fileID: 60675392}
+  - component: {fileID: 60675393}
   m_Layer: 5
   m_Name: CachuLogo
   m_TagString: Untagged
@@ -151,8 +152,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 33.15869}
   m_Children: []
-  m_Father: {fileID: 1904971454}
-  m_RootOrder: 0
+  m_Father: {fileID: 637885910}
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 276.9857}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -210,9 +211,22 @@ Animation:
   - {fileID: 7400000, guid: 8961d1c3fa75e7941abf8a293311291d, type: 2}
   - {fileID: 7400000, guid: b1a18c0cfb4de9d4184fbe9ec954b3c0, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &60675393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 60675388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a7370a2e5429e2419e23d0a101ee1dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAnim: {fileID: 60675392}
 --- !u!1 &109471887
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,7 +429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -812,6 +826,7 @@ RectTransform:
   - {fileID: 973792690}
   - {fileID: 898498781}
   - {fileID: 1904971454}
+  - {fileID: 60675389}
   - {fileID: 1600128281}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -1778,6 +1793,7 @@ GameObject:
   - component: {fileID: 1600128282}
   - component: {fileID: 1600128284}
   - component: {fileID: 1600128285}
+  - component: {fileID: 1600128286}
   m_Layer: 5
   m_Name: SplashArtGame
   m_TagString: Untagged
@@ -1798,7 +1814,7 @@ RectTransform:
   m_Children:
   - {fileID: 166301103}
   m_Father: {fileID: 637885910}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1867,9 +1883,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 8e3dfcf0be218814d8d7803c230edb0b, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1600128286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600128280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f0c58817d852c43a392a9a9627bb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAnim: {fileID: 1600128285}
 --- !u!1 &1904971453
 GameObject:
   m_ObjectHideFlags: 0
@@ -1882,6 +1911,7 @@ GameObject:
   - component: {fileID: 1904971456}
   - component: {fileID: 1904971455}
   - component: {fileID: 1904971457}
+  - component: {fileID: 1904971458}
   m_Layer: 5
   m_Name: SplashLogoCachu
   m_TagString: Untagged
@@ -1899,8 +1929,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 60675389}
+  m_Children: []
   m_Father: {fileID: 637885910}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1959,9 +1988,22 @@ Animation:
   m_Animations:
   - {fileID: 7400000, guid: 367ebbd2394125e4087dfb55b68ca222, type: 2}
   m_WrapMode: 0
-  m_PlayAutomatically: 1
+  m_PlayAutomatically: 0
   m_AnimatePhysics: 0
   m_CullingType: 0
+--- !u!114 &1904971458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1904971453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96f0c58817d852c43a392a9a9627bb10, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myAnim: {fileID: 1904971457}
 --- !u!1 &1965650211
 GameObject:
   m_ObjectHideFlags: 0

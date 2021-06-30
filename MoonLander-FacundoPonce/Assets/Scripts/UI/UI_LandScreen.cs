@@ -1,6 +1,5 @@
-﻿using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
+using UnityEngine;
 using TMPro;
 
 public class UI_LandScreen : MonoBehaviour
@@ -16,14 +15,17 @@ public class UI_LandScreen : MonoBehaviour
         panelLand.gameObject.SetActive(false);
         ShipController.shipLanded += UpdateLandScree;
     }
+
     private void OnDisable()
     {
         ShipController.shipLanded -= UpdateLandScree;
     }
+
     public void DeactiveLandScreen()
     {
         panelLand.gameObject.SetActive(false);
     }
+
     void UpdateLandScree(ref bool landed)
     {
         panelLand.gameObject.SetActive(true);

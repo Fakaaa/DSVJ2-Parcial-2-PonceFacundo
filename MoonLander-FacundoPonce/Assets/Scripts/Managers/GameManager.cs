@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     [Header("SCENE MAGNAMENT")]
     [SerializeField] public SceneLoader sceneLoader;
+    private bool finalSplashPlayed = false;
     private float amountBlend = 0.5f;
 
     public delegate void PauseGameEvent();
@@ -39,6 +40,14 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+    }
+    public bool WasFinalSplashPlayed()
+    {
+        return finalSplashPlayed;
+    }
+    public void FinalSplash()
+    {
+        finalSplashPlayed = true;
     }
     public void ResetScore()
     {

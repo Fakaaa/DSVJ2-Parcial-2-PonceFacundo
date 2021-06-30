@@ -17,6 +17,8 @@ public class ShipController : MonoBehaviour
 
     void Start()
     {
+        LimitLevels.playerOutOfLimits += DestroyShip;
+
         minDegreeToExplode = 0.35f;
         maxYvelToCrash = -20f;
         maxHeight = 600;
@@ -27,7 +29,7 @@ public class ShipController : MonoBehaviour
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if(!dataSpaceShip.landed)
         {
@@ -38,19 +40,21 @@ public class ShipController : MonoBehaviour
         CheckIfIsNearGround();
     }
 
+    private void OnDisable()
+    {
+        LimitLevels.playerOutOfLimits -= DestroyShip;
+    }
+
     void ImpulseShip()
     {
         if (Input.GetKey(KeyCode.Space) && dataSpaceShip.fuel > 0)
         {
             myBody.AddForce(transform.up * dataSpaceShip.propulsionPower * Time.deltaTime, ForceMode2D.Force);
             dataSpaceShip.fuel--;
-            if (!propulsion.isPlaying)
-                propulsion.Play(true);
+            if (!propulsion.isPlaying) propulsion.Play(true);
         }
         else
-        {
            propulsion.Stop(true, ParticleSystemStopBehavior.StopEmitting);
-        }
     }
 
     void RotateShip()
@@ -64,14 +68,19 @@ public class ShipController : MonoBehaviour
     void CheckIfIsNearGround()
     {
         rayToGround = new Ray(myBody.transform.position, Vector3.down * maxHeight);
-        Debug.DrawRay(rayToGround.origin, rayToGround.direction * maxHeight);
 
         RaycastHit2D hitInfo = Physics2D.Raycast(rayToGround.origin, rayToGround.direction, maxHeight);
 
-        dataSpaceShip.altitude = Vector2.Distance(myBody.transform.position, hitInfo.point);
+        UpdateShipInfo(ref hitInfo);
+    }
+
+    public void UpdateShipInfo(ref RaycastHit2D hitInfoAltitude)
+    {
+        dataSpaceShip.altitude = Vector2.Distance(myBody.transform.position, hitInfoAltitude.point);
         dataSpaceShip.verticalVelocity = myBody.velocity.y;
         dataSpaceShip.horizontalVelocity = myBody.velocity.x;
     }
+
     public void DestroyShip()
     {
         myBody.isKinematic = true;
@@ -82,11 +91,12 @@ public class ShipController : MonoBehaviour
         shipLanded?.Invoke(ref dataSpaceShip.landed);
         Destroy(gameObject, 0.5f);
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+
+    public void ShipLand(ref Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Floor"))
         {
-            if(Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
+            if (Mathf.Abs(myBody.transform.rotation.z) > minDegreeToExplode || dataSpaceShip.verticalVelocity < maxYvelToCrash)
             {
                 DestroyShip();
             }
@@ -114,5 +124,10 @@ public class ShipController : MonoBehaviour
                 shipLanded?.Invoke(ref dataSpaceShip.landed);
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+         ShipLand(ref collision);
     }
 }

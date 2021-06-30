@@ -1,16 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+[Serializable]
 public class ShipData : MonoBehaviour
 {
-    [SerializeField] public float altitude;
-    [SerializeField] public float verticalVelocity;
-    [SerializeField] public float horizontalVelocity;
-    [SerializeField] public float gravityInfluence;
-    [SerializeField] public float fuel;
-    [SerializeField] public float propulsionPower;
-    [SerializeField] public float rotationSpeed;
+    [HideInInspector]public float altitude;
+    [HideInInspector]public float verticalVelocity;
+    [HideInInspector]public float horizontalVelocity;
+    [HideInInspector]public float gravityInfluence;
+    [HideInInspector]public float fuel;
+    [HideInInspector]public float propulsionPower;
+    [HideInInspector]public float rotationSpeed;
 
-    [SerializeField] public bool landed;
+    [HideInInspector]public bool landed;
 
     public delegate void PassShipDataToUI();
     public static PassShipDataToUI updateUIShip;

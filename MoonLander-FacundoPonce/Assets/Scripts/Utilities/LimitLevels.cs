@@ -2,18 +2,14 @@
 
 public class LimitLevels : MonoBehaviour
 {
-    private ShipController player;
+    public delegate void KillPlayerOffLimits();
+    public static KillPlayerOffLimits playerOutOfLimits;
 
-    private void Start()
-    {
-        player = FindObjectOfType<ShipController>();
-    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            if (player != null)
-                player.DestroyShip();
+            playerOutOfLimits?.Invoke();
         }
     }
 }
