@@ -14,7 +14,7 @@ PlayerSettings:
   accelerometerFrequency: 60
   companyName: CachuflitosGames.Inc
   productName: LunarLander_UltraTurbo_MasterChief.
-  defaultCursor: {fileID: 0}
+  defaultCursor: {fileID: 2800000, guid: 66e64d25d2eecad4b91da6b2f7d7ef91, type: 3}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
