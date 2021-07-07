@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class MakeSplash : MonoBehaviour
+public class UI_MakeSplash : MonoBehaviour
 {
     [SerializeField] Animation myAnim;
     void Start()

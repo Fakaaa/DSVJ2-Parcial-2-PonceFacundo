@@ -115,8 +115,8 @@ MonoBehaviour:
   horizontalVelocity: 0
   gravityInfluence: 0.7
   fuel: 5000
-  propulsionPower: 1000
-  rotationSpeed: 150
+  propulsionPower: 20
+  rotationSpeed: 4
   landed: 0
 --- !u!1 &1671195701854894419
 GameObject:

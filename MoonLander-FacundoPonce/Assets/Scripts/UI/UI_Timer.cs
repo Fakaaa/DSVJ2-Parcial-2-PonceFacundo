@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using TMPro;
 
-public class TimerGame : MonoBehaviour
+public class UI_Timer : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI timeText;
 

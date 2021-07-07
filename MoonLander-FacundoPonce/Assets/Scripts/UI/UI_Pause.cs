@@ -6,12 +6,12 @@ public class UI_Pause : MonoBehaviour
     void Start()
     {
         if(GameManager.Get() != null)
-            GameManager.Get().isGamePaused += ActivatePause;
+            GameManager.Get().OnGamePaused += ActivatePause;
     }
     private void OnDisable()
     {
         if (GameManager.Get() != null) 
-            GameManager.Get().isGamePaused -= ActivatePause;
+            GameManager.Get().OnGamePaused -= ActivatePause;
     }
     void ActivatePause()
     {

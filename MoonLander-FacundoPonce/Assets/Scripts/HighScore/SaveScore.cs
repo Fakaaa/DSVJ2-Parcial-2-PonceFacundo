@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.IO;
 
-public class SaveScore : MonoBehaviour
+public class SaveScore
 {
     public string jsonInfo;
     public void SaveScoreAmount(Score scoreToSave)

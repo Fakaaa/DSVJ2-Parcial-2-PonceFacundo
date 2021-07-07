@@ -9,6 +9,8 @@ public class ShipController : MonoBehaviour
 
     public delegate void ShipLanded(ref bool landed);
     public static ShipLanded shipLanded;
+    public delegate void PlayerGainPoints(ref Collision2D collision);
+    public static PlayerGainPoints playerScoreIncrease;
 
     private Ray rayToGround;
     private float maxHeight;
@@ -29,7 +31,7 @@ public class ShipController : MonoBehaviour
         myBody.gravityScale = dataSpaceShip.gravityInfluence;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if(!dataSpaceShip.landed)
         {
@@ -49,7 +51,7 @@ public class ShipController : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space) && dataSpaceShip.fuel > 0)
         {
-            myBody.AddForce(transform.up * dataSpaceShip.propulsionPower * Time.deltaTime, ForceMode2D.Force);
+            myBody.AddForce(transform.up * dataSpaceShip.propulsionPower, ForceMode2D.Force);
             dataSpaceShip.fuel--;
             if (!propulsion.isPlaying) propulsion.Play(true);
         }
@@ -60,9 +62,9 @@ public class ShipController : MonoBehaviour
     void RotateShip()
     {
         if (Input.GetKey(KeyCode.A))
-            myBody.transform.Rotate(transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
+            myBody.transform.Rotate(transform.forward * dataSpaceShip.rotationSpeed);
         if (Input.GetKey(KeyCode.D))
-            myBody.transform.Rotate(-transform.forward * Time.deltaTime * dataSpaceShip.rotationSpeed);
+            myBody.transform.Rotate(-transform.forward * dataSpaceShip.rotationSpeed);
     }
 
     void CheckIfIsNearGround()
@@ -102,24 +104,7 @@ public class ShipController : MonoBehaviour
             }
             else
             {
-                switch (collision.gameObject.layer)
-                {
-                    case 8:
-                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 2);
-                        break;
-                    case 9:
-                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 4);
-                        break;
-                    case 10:
-                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 6);
-                        break;
-                    case 11:
-                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand() * 8);
-                        break;
-                    default:
-                        GameManager.Get()?.IncreaseScore(GameManager.Get().GetPointsPerLand());
-                        break;
-                }
+                playerScoreIncrease?.Invoke(ref collision);
                 dataSpaceShip.landed = true;
                 shipLanded?.Invoke(ref dataSpaceShip.landed);
             }

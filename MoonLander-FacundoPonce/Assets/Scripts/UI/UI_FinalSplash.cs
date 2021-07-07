@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class FinalSplash : MonoBehaviour
+public class UI_FinalSplash : MonoBehaviour
 {
     [SerializeField] Animation myAnim;
     void Start()

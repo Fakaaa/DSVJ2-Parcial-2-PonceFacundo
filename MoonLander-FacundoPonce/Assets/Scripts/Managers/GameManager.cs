@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
 
     private SaveScore scoreSaver;
     public delegate void PauseGameEvent();
-    public PauseGameEvent isGamePaused;
+    public PauseGameEvent OnGamePaused;
     public delegate void UpdateHighScoreUI(ref Score playerHS);
     public UpdateHighScoreUI updateHSUI;
 
@@ -34,6 +34,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     //========================================
     private void Start()
     {
+        ShipController.playerScoreIncrease += PlayerScores;
         LoadAndSaveScores();   
         finalSplashPlayed = false;
         blendPerLevel.gameObject.SetActive(false);
@@ -47,6 +48,10 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             Time.timeScale = 0;
         else
             Time.timeScale = 1;
+    }
+    private void OnDisable()
+    {
+        ShipController.playerScoreIncrease -= PlayerScores;
     }
     //========================================
     //SCORE MAGNAMENT
@@ -94,6 +99,27 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
             SetHighScore(playerName, playerActualScore);
             scoreSaver.SaveScoreAmount(playerHighScore);
             CallUpdateHighScore();
+        }
+    }
+    public void PlayerScores(ref Collision2D collision)
+    {
+        switch (collision.gameObject.layer)
+        {
+            case 8:
+                IncreaseScore(GetPointsPerLand() * 2);
+                break;
+            case 9:
+                IncreaseScore(GetPointsPerLand() * 4);
+                break;
+            case 10:
+                IncreaseScore(GetPointsPerLand() * 6);
+                break;
+            case 11:
+                IncreaseScore(GetPointsPerLand() * 8);
+                break;
+            default:
+                IncreaseScore(GetPointsPerLand());
+                break;
         }
     }
     public int GetScorePlayer()
@@ -172,7 +198,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     }
     public void PauseGame()
     {
-        isGamePaused?.Invoke();
+        OnGamePaused?.Invoke();
         gamePaused = !gamePaused;
     }
     public void QuitGame()
